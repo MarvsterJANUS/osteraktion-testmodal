@@ -1,0 +1,564 @@
+/* =====================================================
+   Easter Egg Hunt — Styles
+   ===================================================== */
+
+/* === Page Easter Egg === */
+
+.easter-egg {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  animation: eggBob 2.5s ease-in-out infinite;
+  transition: filter 0.25s ease, transform 0.25s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18));
+  user-select: none;
+  -webkit-user-select: none;
+  display: inline-block;
+}
+
+.easter-egg:hover {
+  filter: drop-shadow(0 4px 20px rgba(72, 210, 190, 0.65));
+  transform: scale(1.08) translateY(-3px);
+  animation-play-state: paused;
+}
+
+@keyframes eggBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-9px); }
+}
+
+
+/* === Modal Overlay === */
+
+.egg-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.65);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.egg-modal-overlay.active {
+  opacity: 1;
+}
+
+.egg-modal-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* === Modal Card === */
+
+.egg-modal {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 56px 60px 52px;
+  max-width: 660px;
+  width: 100%;
+  text-align: center;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.22);
+  transform: translateY(40px) scale(0.96);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.egg-modal.active {
+  transform: translateY(0) scale(1);
+}
+
+
+/* === Phase Containers === */
+
+.modal-phase {
+  animation: phaseIn 0.45s ease forwards;
+}
+
+.modal-phase[hidden] {
+  display: none !important;
+}
+
+.modal-phase.phase-exit {
+  animation: phaseOut 0.28s ease forwards;
+}
+
+@keyframes phaseIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes phaseOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+
+/* === Crack Phase — Header === */
+
+.modal-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+
+.crack-hint {
+  color: #718096;
+  font-size: 0.9rem;
+  margin: 0 0 22px;
+}
+
+
+/* === Progress Pips === */
+
+.crack-progress {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.pip {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pip.active {
+  background: #f6993f;
+  transform: scale(1.25);
+}
+
+
+/* === Egg Crack Container === */
+
+.egg-crack-container {
+  position: relative;
+  width: 245px;
+  height: 270px;
+  margin: 0 auto 8px;
+  cursor: pointer;
+  animation: containerBob 1.6s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.egg-crack-container.breaking,
+.egg-crack-container.shake {
+  animation: none;
+}
+
+@keyframes containerBob {
+  0%, 100% { transform: rotate(-3deg); }
+  50%       { transform: rotate(3deg); }
+}
+
+/* Shake on each crack hit */
+@keyframes eggShake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  15%       { transform: translate(-5px, -2px) rotate(-3deg); }
+  35%       { transform: translate(5px, 1px) rotate(3deg); }
+  55%       { transform: translate(-4px, 0) rotate(-2deg); }
+  75%       { transform: translate(4px, 1px) rotate(2deg); }
+}
+
+.egg-crack-container.shake {
+  animation: eggShake 0.38s ease;
+}
+
+
+/* === Whole egg (visible until breaking) === */
+
+.egg-whole {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  /* instant hide — no fade, so the switch to halves is seamless */
+  transition: opacity 0s;
+}
+
+/* === Egg Halves (hidden until the moment of breaking) === */
+
+.egg-half {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* halves are invisible by default — only shown when .breaking fires */
+  opacity: 0;
+  transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0s;
+}
+
+.egg-half img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Slight overlap at split point to kill any sub-pixel gap */
+.egg-top    { clip-path: inset(0 0 49.5% 0); }
+.egg-bottom { clip-path: inset(49.5% 0 0 0); }
+
+/* On breaking: hide whole image, reveal & fly halves — all in the same frame */
+.egg-crack-container.breaking .egg-whole {
+  opacity: 0;
+}
+.egg-crack-container.breaking .egg-half {
+  opacity: 1;
+}
+.egg-crack-container.breaking .egg-top {
+  transform: translateY(-140%) rotate(-22deg);
+}
+.egg-crack-container.breaking .egg-bottom {
+  transform: translateY(140%) rotate(18deg);
+}
+
+
+/* === SVG Crack Overlay === */
+
+.egg-cracks-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+
+/* === Sparkles === */
+
+.egg-sparkles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.egg-sparkles span {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  opacity: 0;
+  top: 0;
+  left: 0;
+}
+
+.egg-sparkles span:nth-child(1) { background: #FFD700; }
+.egg-sparkles span:nth-child(2) { background: #FF69B4; }
+.egg-sparkles span:nth-child(3) { background: #00CED1; }
+.egg-sparkles span:nth-child(4) { background: #FF6347; }
+.egg-sparkles span:nth-child(5) { background: #7B68EE; }
+.egg-sparkles span:nth-child(6) { background: #32CD32; }
+.egg-sparkles span:nth-child(7) { background: #FF8C00; }
+.egg-sparkles span:nth-child(8) { background: #FF1493; }
+
+@keyframes sparkleFly {
+  0%   { transform: translate(calc(-50% + var(--ox, 0px)), calc(-50% + var(--oy, 0px))) scale(1.2); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) scale(0);   opacity: 0; }
+}
+
+.egg-crack-container.breaking .egg-sparkles span:nth-child(1) {
+  --tx:   0px; --ty: -95px;
+  animation: sparkleFly 0.65s ease-out 0.1s forwards;
+}
+.egg-crack-container.breaking .egg-sparkles span:nth-child(2) {
+  --tx:  67px; --ty: -67px;
+  animation: sparkleFly 0.65s ease-out 0.15s forwards;
+}
+.egg-crack-container.breaking .egg-sparkles span:nth-child(3) {
+  --tx:  95px; --ty:   0px;
+  animation: sparkleFly 0.65s ease-out 0.08s forwards;
+}
+.egg-crack-container.breaking .egg-sparkles span:nth-child(4) {
+  --tx:  67px; --ty:  67px;
+  animation: sparkleFly 0.65s ease-out 0.18s forwards;
+}
+.egg-crack-container.breaking .egg-sparkles span:nth-child(5) {
+  --tx:   0px; --ty:  95px;
+  animation: sparkleFly 0.65s ease-out 0.12s forwards;
+}
+.egg-crack-container.breaking .egg-sparkles span:nth-child(6) {
+  --tx: -67px; --ty:  67px;
+  animation: sparkleFly 0.65s ease-out 0.06s forwards;
+}
+.egg-crack-container.breaking .egg-sparkles span:nth-child(7) {
+  --tx: -95px; --ty:   0px;
+  animation: sparkleFly 0.65s ease-out 0.2s forwards;
+}
+.egg-crack-container.breaking .egg-sparkles span:nth-child(8) {
+  --tx: -67px; --ty: -67px;
+  animation: sparkleFly 0.65s ease-out 0.05s forwards;
+}
+
+
+/* === Fact Phase === */
+
+.egg-fact-card {
+  background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+  border: 1.5px solid #9ae6b4;
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.fact-egg-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.fact-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #38a169;
+  margin: 0 0 10px;
+}
+
+.fact-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #2d3748;
+  margin: 0;
+}
+
+
+/* === Quiz Phase === */
+
+.egg-quiz-card {
+  background: linear-gradient(135deg, #ebf8ff 0%, #e9d8fd 100%);
+  border: 1.5px solid #90cdf4;
+  border-radius: 16px;
+  padding: 24px 24px 20px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.quiz-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.quiz-question {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2d3748;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.quiz-answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.quiz-answer-btn {
+  padding: 13px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f7fafc;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #2d3748;
+  text-align: left;
+  line-height: 1.4;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.15s ease;
+}
+
+.quiz-answer-btn:hover:not(:disabled) {
+  border-color: #76e4f7;
+  background: #ebf8ff;
+  transform: translateY(-2px);
+}
+
+.quiz-answer-btn:disabled {
+  cursor: default;
+}
+
+.quiz-answer-btn.answer-correct {
+  border-color: #48bb78;
+  background: #f0fff4;
+  color: #276749;
+  font-weight: 700;
+}
+
+.quiz-answer-btn.answer-wrong {
+  border-color: #fc8181;
+  background: #fff5f5;
+  color: #c53030;
+}
+
+.quiz-result {
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.quiz-result.result-correct {
+  background: #f0fff4;
+  border: 1px solid #9ae6b4;
+  color: #276749;
+  font-weight: 600;
+}
+
+.quiz-result.result-wrong {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  color: #822727;
+}
+
+.quiz-result.result-wrong strong {
+  color: #276749;
+}
+
+
+/* === Lottery Phase === */
+
+.egg-lottery-card {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 2px solid #f6c90e;
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+}
+
+.lottery-icon {
+  font-size: 2.8rem;
+  margin-bottom: 14px;
+  animation: trophyPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes trophyPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.1) rotate(3deg); }
+}
+
+.lottery-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #744210;
+  margin: 0 0 10px;
+}
+
+.lottery-text {
+  font-size: 0.95rem;
+  color: #7b341e;
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.lottery-sub {
+  font-size: 0.85rem;
+  color: #975a16;
+  margin: 0;
+}
+
+
+/* === Buttons === */
+
+.egg-btn {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 50px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+  letter-spacing: 0.02em;
+}
+
+.egg-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(72, 187, 120, 0.5);
+  filter: brightness(1.05);
+}
+
+.egg-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(72, 187, 120, 0.35);
+}
+
+.egg-close-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.egg-close-btn:hover {
+  box-shadow: 0 8px 22px rgba(102, 126, 234, 0.5);
+}
+
+
+/* === Responsive === */
+
+@media (max-width: 480px) {
+  .egg-modal {
+    padding: 28px 20px 24px;
+    border-radius: 18px;
+  }
+
+  .modal-title {
+    font-size: 1.15rem;
+  }
+
+  .egg-crack-container {
+    width: 160px;
+    height: 177px;
+  }
+
+  .egg-btn {
+    width: 100%;
+    padding: 14px 20px;
+  }
+}

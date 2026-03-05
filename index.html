@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Osteraktion – Ostereier suchen!</title>
+
+  <!-- Easter Egg Hunt Styles -->
+  <link rel="stylesheet" href="easter-egg-hunt.css">
+
+  <style>
+    /* ── Demo Page Styles ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      background: #f7fafc;
+      color: #2d3748;
+      line-height: 1.7;
+    }
+
+    /* Header */
+    .site-header {
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 50%, #2f855a 100%);
+      color: #fff;
+      padding: 48px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 50px;
+      padding: 5px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .site-header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .site-header p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Egg 1 — header corner */
+    .egg-in-header {
+      position: absolute;
+      bottom: 18px;
+      right: 36px;
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hunt Banner */
+    .hunt-banner {
+      background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+      border: 2px dashed #f6c90e;
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 40px 0;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hunt-banner-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .hunt-banner-text h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #744210;
+      margin-bottom: 4px;
+    }
+
+    .hunt-banner-text p {
+      font-size: 0.9rem;
+      color: #975a16;
+    }
+
+    /* Articles */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .article-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .card-image-placeholder {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .card-image-placeholder.green  { background: linear-gradient(135deg, #c6f6d5, #9ae6b4); }
+    .card-image-placeholder.yellow { background: linear-gradient(135deg, #fefcbf, #faf089); }
+    .card-image-placeholder.blue   { background: linear-gradient(135deg, #bee3f8, #90cdf4); }
+
+    .card-body {
+      padding: 18px 20px;
+    }
+
+    .card-body h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1a202c;
+      margin-bottom: 7px;
+    }
+
+    .card-body p {
+      font-size: 0.85rem;
+      color: #718096;
+    }
+
+    /* Article sections */
+    .article-section {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 36px 40px;
+      margin: 28px 0;
+      position: relative;
+    }
+
+    .article-section h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #1a202c;
+      margin-bottom: 14px;
+    }
+
+    .article-section p {
+      color: #4a5568;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .article-section p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .inline-egg-wrapper {
+      float: right;
+      margin: 0 0 12px 20px;
+    }
+
+    /* Egg #3 — tilted in article corner */
+    .corner-egg {
+      position: absolute;
+      bottom: -12px;
+      left: 30px;
+      transform: rotate(-22deg);
+      width: 62px !important;
+      animation-delay: 0.5s;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #2d3748;
+      color: #a0aec0;
+      text-align: center;
+      padding: 32px 24px;
+      margin-top: 60px;
+      font-size: 0.85rem;
+      position: relative;
+    }
+
+    .footer-egg-wrapper {
+      position: absolute;
+      top: -28px;
+      right: 60px;
+    }
+
+    @media (max-width: 520px) {
+      .article-section { padding: 28px 20px; }
+      .egg-in-header   { right: 14px; bottom: 12px; }
+      .footer-egg-wrapper { right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="header-badge">🐣 Osteraktion 2025</div>
+    <h1>Frohe Ostern! 🐰</h1>
+    <p>
+      Wir feiern Ostern mit einer besonderen Aktion.
+      Halte die Augen offen – auf dieser Seite verstecken sich bunte Ostereier!
+    </p>
+
+    <!-- Easter Egg #1 — header, top right -->
+    <div class="egg-in-header">
+      <img class="easter-egg"
+           data-egg-id="egg-header"
+           src="assets/images/easteregg.png"
+           alt="Osterei"
+           width="80">
+    </div>
+  </header>
+
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="container">
+
+    <!-- Hunt Banner -->
+    <div class="hunt-banner">
+      <div class="hunt-banner-icon">🔍</div>
+      <div class="hunt-banner-text">
+        <h2>Ostereier-Suche läuft!</h2>
+        <p>
+          Auf dieser Seite sind mehrere Ostereier versteckt.
+          Finde sie, knack sie auf und nimm am Gewinnspiel teil!
+        </p>
+      </div>
+    </div>
+
+    <!-- Article Cards -->
+    <div class="article-grid">
+      <div class="article-card">
+        <div class="card-image-placeholder green">🌿</div>
+        <div class="card-body">
+          <h3>Frühlings-Tipps für den Garten</h3>
+          <p>Der Frühling ist da – jetzt ist die perfekte Zeit, um Beete anzulegen und Setzlinge einzupflanzen.</p>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="card-image-placeholder yellow">🍳</div>
+        <div class="card-body">
+          <h3>Osterspezialitäten aus aller Welt</h3>
+          <p>Von Simnel Cake in England bis zum Kulich in Russland – Ostern wird weltweit kulinarisch gefeiert.</p>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="card-image-placeholder blue">🎨</div>
+        <div class="card-body">
+          <h3>Ostereier kreativ bemalen</h3>
+          <p>Mit ein bisschen Farbe und Fantasie entstehen einzigartige Kunstwerke – Schritt für Schritt erklärt.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article with egg floated into text -->
+    <div class="article-section">
+      <div class="inline-egg-wrapper">
+        <!-- Easter Egg #2 — nestled inside article text -->
+        <img class="easter-egg"
+             data-egg-id="egg-article"
+             src="assets/images/easteregg.png"
+             alt="Osterei"
+             width="72"
+             style="animation-delay: 0.25s;">
+      </div>
+
+      <h2>Die Geschichte des Osterfestes</h2>
+      <p>
+        Ostern ist eines der ältesten und bedeutendsten christlichen Feste. Es erinnert an die Auferstehung Jesu Christi
+        und fällt jedes Jahr auf einen anderen Sonntag zwischen Ende März und Mitte April.
+      </p>
+      <p>
+        Viele Osterbräuche haben jedoch weit ältere Wurzeln: Das Dekorieren von Eiern als Symbol der Fruchtbarkeit
+        und des neuen Lebens war schon in vorchristlichen Frühlingsfesten verbreitet. Selbst der Osterhase taucht
+        erst im 17. Jahrhundert in deutschen Quellen auf.
+      </p>
+      <p>
+        Heute verbinden wir Ostern mit Familie, Schokolade, bunt gefärbten Eiern – und vielleicht dem ein oder
+        anderen versteckten Schatz im Garten. Wer aufmerksam schaut, findet mehr als erwartet …
+      </p>
+    </div>
+
+    <!-- Second article with corner egg -->
+    <div class="article-section">
+      <h2>Unser Gewinnspiel</h2>
+      <p>
+        Zu Ostern verlosen wir einen tollen Hauptpreis! Wer alle versteckten Ostereier auf dieser Seite findet
+        und aufknackt, landet automatisch im Lostopf.
+      </p>
+      <p>
+        Die Eier sind gut versteckt – manche liegen offen sichtbar, andere lauern in den dunkleren Ecken.
+        Schau genau hin, denn jedes Ei kann nur einmal gefunden werden. Also los – die Suche hat begonnen!
+      </p>
+
+      <!-- Easter Egg #3 — bottom left, tilted and partially clipped -->
+      <img class="easter-egg corner-egg"
+           data-egg-id="egg-corner"
+           src="assets/images/easteregg.png"
+           alt="Osterei">
+    </div>
+
+  </main>
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+
+    <!-- Easter Egg #4 — peeking above footer line -->
+    <div class="footer-egg-wrapper">
+      <img class="easter-egg"
+           data-egg-id="egg-footer"
+           src="assets/images/easteregg.png"
+           alt="Osterei"
+           width="55"
+           style="animation-delay: 0.9s;">
+    </div>
+
+    <p>© 2025 Osteraktion &nbsp;·&nbsp; Alle Rechte vorbehalten</p>
+    <p style="margin-top: 6px; font-size: 0.78rem; opacity: 0.6;">
+      Gefundene Eier werden lokal im Browser gespeichert (localStorage).
+      Zum Zurücksetzen: DevTools → Application → localStorage → <code>easterHunt_crackedEggs</code> löschen.
+    </p>
+  </footer>
+
+
+  <!-- Easter Egg Hunt Script -->
+  <script src="lootpool.js"></script>
+  <script src="easter-egg-hunt.js"></script>
+
+</body>
+</html>
