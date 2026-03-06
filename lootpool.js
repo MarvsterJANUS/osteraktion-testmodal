@@ -184,7 +184,7 @@ const LOOT_POOL = [
     type: 'quiz',
     question: 'Warum soll das Warenangebot im DauDi zur Saison passen?',
     answers: ['Damit das Display moderner aussieht', 'Damit es für Kunden spannend bleibt und Kaufimpulse setzt', 'Damit die Apotheke mehr Platz hat', 'Damit weniger Produkte verkauft werden'],
-    correctIndex: 2
+    correctIndex: 1
   },
   {
     type: 'quiz',
