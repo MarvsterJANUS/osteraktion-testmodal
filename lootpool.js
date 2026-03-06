@@ -164,7 +164,7 @@ const LOOT_POOL = [
   },
   {
     type: 'quiz',
-    question: 'Was ist DauDi?',
+    question: 'Was ist ein DauDi?',
     answers: ['Ein eLearning', 'Ein Medikament', 'Ein Produktdisplay für die Apotheke', 'Eine App'],
     correctIndex: 2
   },
