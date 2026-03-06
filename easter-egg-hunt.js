@@ -414,6 +414,19 @@ function closeModal(overlay, eggEl, eggId) {
 
 // ── Init on page load ──────────────────────────────────
 
+const EGG_IMAGES = [
+  'assets/images/easteregg.png',
+  'assets/images/easteregg2.png',
+  'assets/images/easteregg3.png',
+  'assets/images/easteregg4.png',
+  'assets/images/easteregg5.png',
+  'assets/images/easteregg6.png',
+];
+
+function randomEggImage() {
+  return EGG_IMAGES[Math.floor(Math.random() * EGG_IMAGES.length)];
+}
+
 function initEasterEggs() {
   const cracked = getCrackedEggs();
 
@@ -425,6 +438,9 @@ function initEasterEggs() {
       egg.remove();
       return;
     }
+
+    egg.src = randomEggImage();
+    egg.style.width = (50 + Math.floor(Math.random() * 71)) + 'px'; // 50–120 px
 
     egg.addEventListener('click', () => openEggModal(egg, id));
   });
