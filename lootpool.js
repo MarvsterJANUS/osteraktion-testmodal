@@ -95,5 +95,107 @@ const LOOT_POOL = [
     question: 'Welches Produkt gibt es auch als Variante Plus C?',
     answers: ['Talcid®', 'Phytohustil®', 'Aspirin®', 'Bepanthen®'],
     correctIndex: 2
+  },
+  {
+    type: 'quiz',
+    question: 'Welches Produkt gibt es auch als Augentropfen Intense?',
+    answers: ['Bepanthol®', 'Laif® 900 Balance', 'Aspirin®', 'Bepanthen®'],
+    correctIndex: 3
+  },
+  {
+    type: 'quiz',
+    question: 'Wie viele eLearnings bietet die Plattform ungefähr an?',
+    answers: ['5', '10', 'über 15', 'über 50'],
+    correctIndex: 2
+  },
+  {
+    type: 'quiz',
+    question: 'Welche Marke gehört zu den bekanntesten Schmerzmitteln von Bayer?',
+    answers: ['Aspirin®', 'Phytohustil®', 'Talcid®', 'Bepanthen®'],
+    correctIndex: 0
+  },
+  {
+    type: 'quiz',
+    question: 'Was ist ClubBayer?',
+    answers: ['Eine Apotheke', 'Eine Fortbildungsplattform für Apothekenpersonal', 'Ein Online-Shop', 'Ein Gesundheitsforum'],
+    correctIndex: 1
+  },
+  {
+    type: 'quiz',
+    question: 'Wann erhält man Prämienpunkte bei ClubBayer?',
+    answers: ['Beim Lesen eines Artikels', 'Beim Teilen auf Social Media', 'Beim Login', 'Beim Abschluss eines eLearnings'],
+    correctIndex: 3
+  },
+  {
+    type: 'quiz',
+    question: 'In welchem Land wurde Bayer gegründet?',
+    answers: ['Schweiz', 'Deutschland', 'Österreich', 'USA'],
+    correctIndex: 1
+  },
+  {
+    type: 'quiz',
+    question: 'Welche zusätzliche Variante gibt es von Aspirin?',
+    answers: ['Aspirin Plus C', 'Aspirin Ultra', 'Aspirin Forte Max', 'Aspirin Gold'],
+    correctIndex: 0
+  },
+  {
+    type: 'quiz',
+    question: 'Welche Produkt-Variante gibt es für die Augen?',
+    answers: ['Bepanthen Augenspray', 'Bepanthen Augentropfen Intense', 'Bepanthen Eye Care', 'Bepanthen Vision'],
+    correctIndex: 1
+  },
+  {
+    type: 'quiz',
+    question: 'Welches Produkt unterstützt innere Ruhe und Balance?',
+    answers: ['Laif® 900 Balance', 'Talcid®', 'Lefax®', 'Elevit®'],
+    correctIndex: 0
+  },
+  {
+    type: 'quiz',
+    question: 'Welches Produkt wird zur Unterstützung des Schlafs eingesetzt?',
+    answers: ['Priorin®', 'Aspirin® Plus C', 'Lunalaif®', 'IberoBiotics®'],
+    correctIndex: 2
+  },
+  {
+    type: 'quiz',
+    question: 'Was steht im Mittelpunkt der ClubBayer eLearnings?',
+    answers: ['Unterhaltung', 'Produktwissen und Beratungskompetenz', 'Spiele', 'Social Media'],
+    correctIndex: 1
+  },
+  {
+    type: 'quiz',
+    question: 'Was ist DauDi?',
+    answers: ['Ein eLearning', 'Ein Medikament', 'Ein Produktdisplay für die Apotheke', 'Eine App'],
+    correctIndex: 2
+  },
+  {
+    type: 'quiz',
+    question: 'Wo sollte DauDi in der Apotheke stehen?',
+    answers: ['Im Lager', 'Im Pausenraum', 'Vor der Tür', 'Gut sichtbar im Verkaufsraum'],
+    correctIndex: 3
+  },
+  {
+    type: 'quiz',
+    question: 'Womit sollte DauDi bestückt werden?',
+    answers: ['Apothekenzeitschriften', 'Bayer-Produkten', 'Rezeptformularen', 'Kosmetik'],
+    correctIndex: 1
+  },
+  {
+    type: 'quiz',
+    question: 'Warum soll das Warenangebot im DauDi zur Saison passen?',
+    answers: ['Damit das Display moderner aussieht', 'Damit es für Kunden spannend bleibt und Kaufimpulse setzt', 'Damit die Apotheke mehr Platz hat', 'Damit weniger Produkte verkauft werden'],
+    correctIndex: 2
+  },
+  {
+    type: 'quiz',
+    question: 'Was können Apotheken im Rahmen der DauDi-Aktionen einreichen?',
+    answers: ['Fotos', 'Videos', 'Rechnungen', 'Rezepte'],
+    correctIndex: 0
+  },
+  {
+    type: 'quiz',
+    question: 'Warum gibt es die DauDi-Community?',
+    answers: ['Für Unterhaltung', 'Für Austausch, Aktionen und Teamspirit', 'Für Produktverkauf', 'Für Werbung'],
+    correctIndex: 1
   }
 ];
